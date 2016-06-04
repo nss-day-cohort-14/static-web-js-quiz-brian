@@ -1,31 +1,21 @@
+// Define tree object
+var tree = {};
 
-var growthButton = document.getElementById("miracleGrow");
-var heightInput = document.getElementById("howTall");
-var charInput = document.getElementById("whatLeaf");
-
-// Function to grow tree on keypress
-function enterKey(event) {
-	var key = event.keyCode;
-	if (key === 13) {
-		toGrow();
-	}	
-}
+function getTree() {
+	// Define height and character key value pairs
+	tree.height = document.getElementById("howTall").value;
+	tree.leaf = document.getElementById("whatLeaf").value;	
+};
 
 // Function to build tree
-function toGrow() {
-	console.log("whats up", heightInput.value);
-	// Tree key: value pairs
-	var tree = {
-		height: heightInput.value,
-		leaf: charInput.value
-	}
+function toGrow(tree) {
 	// Create row string, define space variables for positioning purposes
 	var row = "";
 	var space = " ";
 	var spaceAmount = tree.height - 1;
 	var reduceSpace = 1;
 
-	if (heightInput.value === "" || charInput.value === "") {
+	if (tree.height === "" || tree.leaf === "") {
 		alert("Please enter both a number for the height of the tree and a character for the tree to be built from.");
 
 	} else {
@@ -35,20 +25,27 @@ function toGrow() {
 			row += space;
 		}
 		row += tree.leaf;
-		console.log("firstRow", row);
+		console.log("Row", row);
 
 		// To follow pyramid shape, reduce spacing by one and increase character count by two
-		for (var i = 1; i < spaceAmount; i++) {
+		for (var i = 1; i < tree.height; i++) {
 			row = row.substr(reduceSpace);
 			row += tree.leaf;
 			row += tree.leaf;
-			console.log("     Row", row);
+			console.log("Row", row);
 		}
 	}
 }
 
 // Event listeners to grow tree
-growthButton.addEventListener("click", toGrow);
-whatLeaf.addEventListener("keypress", enterKey);
-
-
+// Refactored functions into event listeners, calling for tree values and passing them into the toGrow() when invoked.  Could not get click event to call function without passing values to it first.
+document.getElementById("whatLeaf").addEventListener("keypress", function(event) {
+	if (event.keyCode === 13) {
+		getTree();
+		toGrow(tree);
+	}
+});
+document.getElementById("miracleGrow").addEventListener("click", function() {
+	getTree();
+	toGrow(tree);
+});
