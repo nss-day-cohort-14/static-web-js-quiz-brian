@@ -25,14 +25,14 @@ function toGrow(tree) {
 			row += space;
 		}
 		row += tree.leaf;
-		console.log("Row", row);
+		console.log(row);
 
 		// To follow pyramid shape, reduce spacing by one and increase character count by two
 		for (var i = 1; i < tree.height; i++) {
 			row = row.substr(reduceSpace);
 			row += tree.leaf;
 			row += tree.leaf;
-			console.log("Row", row);
+			console.log(row);
 		}
 	}
 }
